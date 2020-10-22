@@ -2,3 +2,4 @@
 
 create-react-app curso_react_ejercicio_contactos
 
+npm i formik yup
