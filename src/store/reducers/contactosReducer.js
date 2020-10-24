@@ -12,10 +12,10 @@ let initialState = {
         },
         {
             id: 2,
-            nombre: "Andrés",
-            apellidos: "García",
+            nombre: "Alonso",
+            apellidos: "Prueba",
             telefono: "971224433",
-            email: "alopez@plexus.com",
+            email: "aprueba@plexus.com",
             empresa: "PLEXUS",
             sector: "FINANZAS"
         }
