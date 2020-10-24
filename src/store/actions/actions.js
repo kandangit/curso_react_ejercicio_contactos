@@ -28,5 +28,14 @@ export const updateVisibilidadNuevoContacto = (visibility) => {
     return {
         type: 'UPDATE_VISIBILIDAD_NUEVO_CONTACTO',
         payload: visibility
-    } 
+    }
+}
+
+// Función para devolver una Acción de tipo UPDATE_FILTRO_CONTACTOS
+export const updateFiltroContactos = (filtro) => {
+    console.log("[ACTION] updateFiltroContactos(" + filtro + ")");
+    return {
+        type: 'UPDATE_FILTRO_CONTACTOS',
+        payload: filtro
+    }
 }

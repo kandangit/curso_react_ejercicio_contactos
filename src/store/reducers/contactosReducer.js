@@ -1,9 +1,11 @@
+import Filter from "../../components/Filter";
+
 let initialState = { 
     listaContactos: [{
             id: 1,
             nombre: "Tomeu",
             apellidos: "Smith",
-            telefono: "971 223344",
+            telefono: "971223344",
             email: "tsmith@fundaciobit.org",
             empresa: "Fundación BIT",
             sector: "ALIMENTACION"
@@ -12,13 +14,14 @@ let initialState = {
             id: 2,
             nombre: "Andrés",
             apellidos: "García",
-            telefono: "971 223344",
-            email: "alopez@fundaciobit.org",
+            telefono: "971224433",
+            email: "alopez@plexus.com",
             empresa: "PLEXUS",
             sector: "FINANZAS"
         }
     ],
-    mostrarNuevoContacto: false
+    mostrarNuevoContacto: false,
+    filtro: new Filter()
 };
 
 const contactosReducer = (state = initialState, action) => {
@@ -46,6 +49,13 @@ const contactosReducer = (state = initialState, action) => {
             return {
                 ...state,
                 mostrarNuevoContacto: action.payload
+            }
+        case 'UPDATE_FILTRO_CONTACTOS':
+            console.log(`[ContactosReducer] UPDATE_FILTRO_CONTACTOS. payload recibido ${action.payload}`);
+            let nuevoFiltro = Filter.newObject(action.payload);
+            return {
+                ...state,
+                filtro: nuevoFiltro
             }
         default:
             return state;

@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { addContacto, updateVisibilidadNuevoContacto } from '../store/actions/actions';
 
-// Importamos el formulario de Todos
 import ContactoForm from '../components/ContactoForm';
 
 const mapStateToProps = (state) => {
@@ -10,8 +9,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-// Despacharemos la acción de tipo addTodo y se la asignaremos
-// a la prop llamada 'submit' del componente TodoList
 const mapDispatchToProps = (dispatch) => {
     return {
         onClickMostrarNuevoContacto: () => {
@@ -28,4 +25,4 @@ const mapDispatchToProps = (dispatch) => {
 
 const ContactoFormContainer = connect(mapStateToProps, mapDispatchToProps)(ContactoForm)
 
-export default ContactoFormContainer 
+export default ContactoFormContainer

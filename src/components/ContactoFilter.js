@@ -9,21 +9,18 @@ import * as Yup from 'yup';
 // Añadimos los estilos para el formulario:
 import '../styles/Formik.css';
 
-const ContactoForm = ({mostrarNuevoContacto, onClickMostrarNuevoContacto, onClickOcultarNuevoContacto, onSubmit}) => {
+const ContactoFilter = ({onSubmit}) => {
 
     return (
-        !mostrarNuevoContacto ? <button onClick = { onClickMostrarNuevoContacto }>NUEVO CONTACTO</button>
-        :
         <div>
-            <h2>Formulario de contacto</h2>
+            <h3>Filtro de contactos</h3>
             <Formik
                 //******* DECLARAMOS LOS VALORES INICIALES DEL FORMULARIO ***** */
                 initialValues = {
                     { 
-                        nombre: '',
-                        apellidos: '',
-                        telefono: '',
+                        nombreCompleto: '',
                         email: '',
+                        telefono: '',
                         empresa: '',
                         sector: ''
                     }
@@ -31,14 +28,14 @@ const ContactoForm = ({mostrarNuevoContacto, onClickMostrarNuevoContacto, onClic
                 //******* DECLARAMOS LA FUNCIÓN QUE SE DEBE EJECUTAR EN EL ONSUBMIT DEL FORMULARIO ***** */
                 onSubmit = {
                     (values, { setSubmitting }) => {
-                        // Realizaríamos la llamada a la petición HTTP para hacer el login
+                        // Realizaríamos la llamada a la petición HTTP para hacer la búsqueda
                         // De momento lo vamos a simular con una espera de 1 segundo
                         setTimeout(() => {
                             console.log('ENVIANDO...');
                             console.table(values); // imprimos los valores del formulario
                             onSubmit({
                                 ...values
-                            }); // ejecutamos la función de ContactoFormContainer
+                            }); // ejecutamos la función de ContactoFilterContainer
                             setSubmitting(false);
                         }, 0);
                     }
@@ -49,18 +46,12 @@ const ContactoForm = ({mostrarNuevoContacto, onClickMostrarNuevoContacto, onClic
                 validationSchema = {
                     Yup.object().shape(
                         {
-                            nombre: Yup.string()
-                                .max(10, 'El nombre debe contener como máximo 10 caracteres')
-                                .required('El nombre es obligatorio'),
-                            apellidos: Yup.string()
-                                .max(30, 'Los apellidos deben contener como máximo 30 caracteres'),
-                            email: Yup.string()
-                                .email('El email no es válido')
-                                .required('El campo email es obligatorio'),
+                            nombreCompleto: Yup.string()
+                                .max(50, 'El nombre debe contener como máximo 10 caracteres'),
+                            email: Yup.string(),
                             empresa: Yup.string()
                                 .max(40, 'La empresa debe contener como máximo 40 caracteres'),
                             sector: Yup.string()
-                                .required('El sector es obligatorio')
                         }
                     )
                 }
@@ -71,57 +62,23 @@ const ContactoForm = ({mostrarNuevoContacto, onClickMostrarNuevoContacto, onClic
                 const { values, touched, errors, isSubmitting, handleChange, handleSubmit, handleBlur, resetForm } = props;
 
                 return (
-                    <div>
+                    <div className="filtro">
                         <form onSubmit = { handleSubmit }>
 
-                            {/* NOMBRE DEL USUARIO */}
-                            <label htmlFor='nombre'>Nombre</label>
+                            {/* NOMBRE COMPLETO */}
+                            <label htmlFor='nombreCompleto'>Nombre y apellidos</label>
                             <input 
-                                name = 'nombre'
+                                name = 'nombreCompleto'
                                 type = 'text'
-                                placeholder = 'nombre'
-                                value = { values.nombre }
+                                placeholder = 'nombre y apellidos'
+                                value = { values.nombreCompleto }
                                 onChange = { handleChange }
                                 onBlur = { handleBlur }
-                                className = { errors.nombre && touched.nombre && 'error'}
+                                className = { errors.nombreCompleto && touched.nombreCompleto && 'error'}
                             />
-                            { errors.nombre && touched.nombre && (
+                            { errors.nombreCompleto && touched.nombreCompleto && (
                                 <div className='input-error'>
-                                    { errors.nombre }
-                                </div>
-                            )}
-
-                            {/* APELLIDOS DEL USUARIO */}
-                            <label htmlFor='apellidos'>Apellidos</label>
-                            <input 
-                                name = 'apellidos'
-                                type = 'text'
-                                placeholder = 'apellidos'
-                                value = { values.apellidos }
-                                onChange = { handleChange }
-                                onBlur = { handleBlur }
-                                className = { errors.apellidos && touched.apellidos && 'error'}
-                            />
-                            { errors.apellidos && touched.apellidos && (
-                                <div className='input-error'>
-                                    { errors.apellidos }
-                                </div>
-                            )}
-
-                            {/* TELEFONO DEL USUARIO */}
-                            <label htmlFor='telefono'>Teléfono</label>
-                            <input 
-                                name = 'telefono'
-                                type = 'text'
-                                placeholder = 'telefono'
-                                value = { values.telefono }
-                                onChange = { handleChange }
-                                onBlur = { handleBlur }
-                                className = { errors.telefono && touched.telefono && 'error'}
-                            />
-                            { errors.telefono && touched.telefono && (
-                                <div className='input-error'>
-                                    { errors.telefono }
+                                    { errors.nombreCompleto }
                                 </div>
                             )}
 
@@ -139,6 +96,23 @@ const ContactoForm = ({mostrarNuevoContacto, onClickMostrarNuevoContacto, onClic
                             { errors.email && touched.email && (
                                 <div className='input-error'>
                                     { errors.email }
+                                </div>
+                            )}
+
+                            {/* TELEFONO DEL USUARIO */}
+                            <label htmlFor='telefono'>Teléfono</label>
+                            <input 
+                                name = 'telefono'
+                                type = 'text'
+                                placeholder = 'telefono'
+                                value = { values.telefono }
+                                onChange = { handleChange }
+                                onBlur = { handleBlur }
+                                className = { errors.telefono && touched.telefono && 'error'}
+                            />
+                            { errors.telefono && touched.telefono && (
+                                <div className='input-error'>
+                                    { errors.telefono }
                                 </div>
                             )}
 
@@ -181,9 +155,7 @@ const ContactoForm = ({mostrarNuevoContacto, onClickMostrarNuevoContacto, onClic
 
                             <br />
                            
-                            <button onClick={ onClickOcultarNuevoContacto }>CERRAR</button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type='submit' disabled={ isSubmitting }>CREAR</button>
+                            <button type='submit' disabled={ isSubmitting }>BUSCAR</button>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <button onClick={ resetForm }>RESET</button>
                         </form>
@@ -196,12 +168,9 @@ const ContactoForm = ({mostrarNuevoContacto, onClickMostrarNuevoContacto, onClic
     );
 };
 
-/** Especificamos los tipos y estructura de los props de ContactoForm */
-ContactoForm.propTypes = {
-    mostrarNuevoContacto: PropTypes.bool.isRequired,
-    onClickMostrarNuevoContacto: PropTypes.func.isRequired,
-    onClickOcultarNuevoContacto: PropTypes.func.isRequired,
+/** Especificamos los tipos y estructura de los props de ContactoFilter */
+ContactoFilter.propTypes = {
     onSubmit: PropTypes.func.isRequired
 };
 
-export default ContactoForm;
+export default ContactoFilter;

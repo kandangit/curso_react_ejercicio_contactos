@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import PropTypes from 'prop-types';
 
 const Contacto = ({onDelete, id, nombre, apellidos, telefono, email, empresa, sector}) => {
     // Valor de Referencia con la vista
@@ -55,7 +56,7 @@ const Contacto = ({onDelete, id, nombre, apellidos, telefono, email, empresa, se
             </li>
             <div ref={miDetalleRef} style={{ display : 'none' , textAlign: 'left'}}>
                 id: {id}<br />
-                nombre: {nombre} apellidos: {apellidos}<br />
+                nombre: {nombre}, apellidos: {apellidos}<br />
                 telefono: {telefono}, email: {email}<br />
                 empresa: {empresa}, sector: {sector}
             </div>
@@ -63,16 +64,9 @@ const Contacto = ({onDelete, id, nombre, apellidos, telefono, email, empresa, se
     );
 };
 
-/**
- * Especificamos las verificaciones de los props del componente
- * Tendremos un función (onClick), un booleano (completed) y
- * un string (text)
- */
+/** Especificamos los tipos y estructura de los props de Contacto */
 Contacto.propTypes = {
-    /*onClick: PropTypes.func.isRequired,
-    completed: PropTypes.bool.isRequired,
-    text: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired*/
+    onDelete: PropTypes.func.isRequired
 };
 
 export default Contacto;

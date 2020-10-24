@@ -21,21 +21,21 @@ const ContactoList = ({contactos, onDelete}) => {
     );
 };
 
-/**
- * Especificamos los tipos y estructura de los
- * props del componente TodoList
- */
-/*ContactoList.propTypes = {
+/** Especificamos los tipos y estructura de los props de ContactoList */
+ContactoList.propTypes = {
     contactos: PropTypes.arrayOf(
         PropTypes.shape(
             {
                 id: PropTypes.number.isRequired,
                 nombre: PropTypes.string.isRequired,
-                apellidos: PropTypes.bool.isRequired
+                apellidos: PropTypes.string,
+                email: PropTypes.string.isRequired,
+                empresa: PropTypes.string,
+                sector: PropTypes.string.isRequired
             }
         ).isRequired
     ).isRequired,
-    onContactoClick: PropTypes.func.isRequired
-};*/
+    onDelete: PropTypes.func.isRequired
+};
 
 export default ContactoList;

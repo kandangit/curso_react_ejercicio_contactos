@@ -32,3 +32,16 @@ button {
     padding: 0.4em;
     cursor: pointer;
 }
+
+div.filtro input, select {
+    width: 150px;
+}
+
+div.filtro label {
+    width: auto;
+}
+
+div.filtro input, select, label {
+    display: inline-block;
+    margin-right: 5px;
+}

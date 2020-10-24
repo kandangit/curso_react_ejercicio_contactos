@@ -5,12 +5,10 @@ import { deleteContacto } from '../store/actions/actions';
 
 const mapStateToProps = (state) => {
     return {
-        contactos: state.contactosState.listaContactos
+        contactos: state.contactosState.listaContactos.filter(contacto => state.contactosState.filtro.matchesContact(contacto))
     }
 }
 
-// Despacharemos la acción de tipo toggleTodo y se la asignaremos
-// a la prop llamada 'onTodoClick' del componente TodoList
 const mapDispatchToProps = (dispatch) => {
     return {
         onDelete: (id) => {
@@ -21,8 +19,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-// Conectamos los datos del State con los Props del TodoList
-// También concetamos la función de despachar acciones con las props de TodoList
+// Conectamos los datos del State con los Props del ContactoList
+// También conectamos la función de despachar acciones con las props de ContactoList
 const ContactoListContainer = connect(mapStateToProps, mapDispatchToProps)(ContactoList)
 
 export default ContactoListContainer;
